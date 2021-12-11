@@ -1,0 +1,24 @@
+footer{
+    bottom: 0;
+    width: 100%;
+    padding-top: 10px;
+    background-color: #88c043;
+    color: #2e2e2e;
+    height: 50px;
+    padding-bottom: 30px;
+    position: fixed;
+    }
+.iconesSociale 
+{
+    width: 3%;
+}    
+.ulFooter
+{
+    list-style: none;
+    padding-top: 1%;
+}
+.liFooter
+{
+    display: inline;
+}
+

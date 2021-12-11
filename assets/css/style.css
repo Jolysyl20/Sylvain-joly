@@ -1,0 +1,37 @@
+
+
+#iframeSites
+{
+    border-radius: 15px;
+
+}
+#lienH1 
+{
+    text-decoration: none;
+    font-size: xx-large;
+    color: #88c043;
+}
+#lienH1:hover
+{
+    color: #4392c0;
+    background-image:url(../img/gif/particules.gif);
+    background-size: cover;
+}
+.hoctogone
+{
+    background-image:url(../img/hoctogone.jpg);
+}
+.DivParticules
+{
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 15%;
+    margin-left: 8%;
+    margin-right: 8%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 10%;
+    background-color: #31abd354;
+    border-radius: 7%;
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Code</title>
+    <meta name="description" content="Multi-Level Push Menu: Off-screen navigation with multiple levels" />
+    <meta name="keywords" content="multi-level, menu, navigation, off-canvas, off-screen, mobile, levels, nested, transform" />
+    <meta name="author" content="JSyl20" />
+    <!--only css-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <!--only JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js" integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js" integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc" crossorigin="anonymous"></script>  
+</head>
+  <body> 
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="../../index.html">JSyl20.dev</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="../../index.html">Application</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="assets/html/le_code.html">le code</a>
+              </li>
+              
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <br>
+      <div class="container" style="text-align: center; background-color: #8989891a; border-radius: 9px;"> 
+          <br>
+          <h1>Partie HTML</h1>
+          <br>
+         
+              <div class="container" style="text-align:center; "> 
+        
+                   <pre style="text-align:left; background-color: black;border-radius: 9px; color: white; margin-left: 20%;
+    margin-right: 20%;">
+          <code >
+    <p>&lth2&gtAnalyseur de Fichier .txt&lt/h2&gt</p>
+    &ltbr&gt
+    <span style="color: green;">&lt!-- Méthode post avec input file pour envoi de documents--&gt</span>
+    &ltform method="POST" action="assets/php/upload.php" enctype="multipart/form-data"&gt
+    <span style="color: green;">&lt!-- On limite le fichier à 100Ko --&gt</span>
+    &ltinput type="hidden" name="MAX_FILE_SIZE" value="10000000000"&gt
+    Fichier : &ltinput type="file" name="file"&gt
+    &ltinput type="submit" name="envoyer" value="Envoyer le fichier"&gt
+    &lt/form&gt 
+        </code>
+          </pre>
+                  <br>
+          <h1>Partie PHP</h1>
+          <br>
+            <h2>fichier upload.php</h2>
+        <pre style="text-align:left; background-color: black;border-radius: 9px; color: white; margin-left: 20%;
+    margin-right: 20%;">
+          <code >
+          
+    &lt?php
+    $dossier = 'upload/';
+    $fichier = basename($_FILES['file']['name']);
+    $taille_maxi = 10000;
+    $taille = filesize($_FILES['file']['tmp_name']);
+    $extensions = array('.txt');
+    $extension = strrchr($_FILES['file']['name'], '.'); 
+    $oFichier="fileUpload$extension";
+    //Début des vérifications de sécurité...
+    if(!in_array($extension, $extensions)) //Si l'extension n'est pas dans le tableau
+        {
+             $erreur = 'Vous devez uploader un fichier de type txt ';
+        }
+    if($taille>$taille_maxi)
+        {
+             $erreur = 'Le fichier est trop gros...';
+        }
+    if(!isset($erreur)) //S'il n'y a pas d'erreur, on upload
+        {
+         //On formate le nom du fichier ici...
+         $fichier = strtr($fichier, 
+              'ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïðòóôõöùúûüýÿ', 
+              'AAAAAACEEEEIIIIOOOOOUUUUYaaaaaaceeeeiiiioooooouuuuyy');
+
+         if(move_uploaded_file($_FILES['file']['tmp_name'], $dossier . $oFichier)) //Si la fonction renvoie TRUE, c'est que ça a fonctionné...
+             {
+                 header ("Location: analyse.php");
+                 echo 'Upload effectué avec succès !';
+                 echo '&ltbr&gt';
+             }else //Sinon (la fonction renvoie FALSE).
+                 {
+                      echo 'Echec de l\'upload !';
+                 }
+        }else
+        {
+             echo $erreur;
+        }
+        ?&gt
+          </code>
+          </pre>
+                   
+            <br>
+            <h2>fichier analyse.php</h2>
+        <pre style="text-align:left; background-color: black;border-radius: 9px; color: white; margin-left: 20%;
+    margin-right: 20%;">
+          <code >
+       
+       
+    &lt?php
+    if (!isset($_POST['valider'])) {
+    ?&gt
+    &ltdiv class="container" &gt 
+    &ltdiv class="col"style="text-align: center;background-color: #80808026;margin-top: 5%;margin-left: 25%;margin-right: 25%;padding: 3%;border-radius: 19px;"&gt
+    &ltform method="POST"&gt
+        &lth2>On y est presque...&lt/h2&gt
+        &lth3>Entrer le mot ou phrase à rechercher&lt/h3&gt
+      &ltp>Fichier en cour d'analyse&lt/p&gt
+        &ltdiv class="SkillBar"&gt
+        &ltdiv id="Skill-HTML"&gt 
+
+         &ltspan class="Skill-Area ">&lt/span&gt
+          &ltspan class="PercentText ">97%&lt/span&gt
+        &lt/div&gt
+      &lt/div&gt
+    &ltbr&gt
+        &ltinput type="text" name="mot" placeholder="Mot recherché"/&gt
+        &ltinput type="submit" value="valider" name="valider"/&gt
+    &lt/form&gt
+    &lt/div&gt>
+    &lt/div&gt
+    &lt?php
+    } else {
+
+        $resultats =array();
+        $mot=$_POST['mot'];
+
+        $ofichier="upload/fileUpload.txt";
+        $fp = fopen($ofichier, 'rb') or die('Ouverture en lecture de "' . $ofichier . '" impossible !');
+        ?&gt
+
+        &lt?php
+        while (!feof($fp)) {
+            $ligne = fgets($fp);
+            if (preg_match('|\b' . preg_quote($mot) . '\b|i', $ligne)) {
+                $resultats[] = $ligne;
+            }
+            ?&gt
+
+            &lt?php
+        }
+        fclose($fp);
+        $nb = count($resultats);
+        if ($nb > 0) {
+            echo '&lth1 style="margin-left: 45%">Résultat&lt/h1>&ltbr&gt';
+            echo "&ltdiv class='col'style='text-align: center';&gt
+            &lth2>&ltmark&gt $mot.&lt/mark> a été trouvé $nb fois &lt/h2&gt&lt/div&gt &ltbr> ";
+            echo '&lttextarea style="margin-left: 25%; width: 653px; height: 276px;"&gt';
+
+            foreach ($resultats as $v) {
+                echo" * .$v";
+            }
+
+            echo '&lt/textarea>&ltbr&gt';
+            echo '&ltbr>&ltdiv style="text-align:center"&gt
+            &lta href="../../index.html" > &ltinput type="button" value="retour accueil">&lt/a&gt
+            &lt/div>';
+        } else {
+            die("Ce nom n'est pas présent !");
+        }
+    }
+    ?>
+    &lt/body&gt
+        </code>          
+          </pre>        
+    </div>
+         
+         
+      </div>
+    </body>
+</html>
